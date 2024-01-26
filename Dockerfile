@@ -4,7 +4,7 @@
 FROM alpine AS build
 
 # Install system dependencies
-RUN apk add --no-cache node python3 py3-pip go
+RUN apk add --no-cache npm python3 py3-pip go
 RUN pip3 install python-slugify
 RUN go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
 
