@@ -1,0 +1,9 @@
+# Listen configuration
+:80 {
+    # Redirect /new to actual repo
+    redir /new https://github.com/kyoto-framework/new
+    
+    # File server configuration
+    file_server
+    root * /docs
+}
