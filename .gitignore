@@ -1,4 +1,11 @@
+
+# Exclude mypy
 .mypy_cache
+# Exclude deps
 node_modules
+# Exclude build
 .vitepress/cache
 .vitepress/dist
+# Exclude generated docs
+kyoto
+zen
