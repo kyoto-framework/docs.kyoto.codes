@@ -35,9 +35,9 @@ WORKDIR /docs
 # Copy caddyfile
 COPY --from=build /build/Caddyfile .
 # Copy build
-COPY --from=build /build/docs/.vitepress/dist .
+COPY --from=build /build/.vitepress/dist .
 # Copy statics
-COPY --from=build /build/docs/static ./static
+COPY --from=build /build/static ./static
 
 # Run
 CMD ["caddy", "run"]
