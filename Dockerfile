@@ -6,7 +6,7 @@ FROM alpine AS build
 # Install system dependencies
 RUN apk add --no-cache git npm go python3 py3-pip
 RUN pip3 install --break-system-packages python-slugify
-RUN GOBIN=/usr/bin/ go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
+RUN GOBIN=/usr/bin/ go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@v0.4.1
 
 # Set working directory
 WORKDIR /build
@@ -22,6 +22,7 @@ COPY . .
 
 # Build
 RUN npm run docs:gen
+RUN cat /tmp/kyoto.md
 RUN npm run docs:build
 
 # ---
