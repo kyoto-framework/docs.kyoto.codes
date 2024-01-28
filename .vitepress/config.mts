@@ -29,6 +29,7 @@ export default defineConfig({
               { text: "State", link: "/kyoto/components-with-state", },
               { text: "Arguments", link: "/kyoto/components-with-arguments", },
             ]},
+            { text: "Context", link: "/kyoto/context" },
             { text: "Routing", link: "/kyoto/routing", },
             { text: "Rendering", link: "/kyoto/rendering", },
             { text: "HTMX", collapsed: true, items: [
