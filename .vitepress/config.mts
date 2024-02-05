@@ -46,6 +46,30 @@ export default defineConfig({
           text: "Zen",
           items: [
             { text: "Overview", link: "/zen/", },
+            { text: "Async", collapsed: true, items: [
+              { text: "Overview", link: "/zen/async/", },
+              { text: "Definitions", link: "/zen/async/definitions-index", },
+            ]},
+            { text: "Errors", collapsed: true, items: [
+              { text: "Overview", link: "/zen/errorsx/", },
+              { text: "Definitions", link: "/zen/errorsx/definitions-index", },
+            ]},
+            { text: "Logic", collapsed: true, items: [
+              { text: "Overview", link: "/zen/logic/", },
+              { text: "Definitions", link: "/zen/logic/definitions-index", },
+            ]},
+            { text: "Slices", collapsed: true, items: [
+              { text: "Overview", link: "/zen/slice/", },
+              { text: "Definitions", link: "/zen/slice/definitions-index", },
+            ]},
+            { text: "Maps", collapsed: true, items: [
+              { text: "Overview", link: "/zen/mapx/", },
+              { text: "Definitions", link: "/zen/mapx/definitions-index", },
+            ]},
+            { text: "Conversions", collapsed: true, items: [
+              { text: "Overview", link: "/zen/conv/", },
+              { text: "Definitions", link: "/zen/conv/definitions-index", },
+            ]},
           ]
         }
       ]

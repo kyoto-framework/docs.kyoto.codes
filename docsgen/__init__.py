@@ -17,6 +17,7 @@ class Arguments:
     repository: docsgen.repository.Repository
     outpath: pathlib.Path
     repository_branch: str | None = None
+    repository_dirs: list[str] | None = None
     tmppath: pathlib.Path | None = None
     prefix: str | None = None
 
@@ -81,13 +82,12 @@ def generate(args: Arguments) -> None:
     """Docsgen tool entrypoint."""
     # Defaults
     args.tmppath = args.tmppath or pathlib.Path(tempfile.gettempdir())
-    args.prefix = args.prefix or args.repository.name
+    args.prefix = args.prefix or ""
 
     # Define paths
     reppath = (args.tmppath / args.repository.name) \
         if args.repository.is_remote \
         else pathlib.Path(str(args.repository))
-    rawpath = args.tmppath / (args.repository.name + ".md")
 
     # Cleanup paths (if needed)
     docsgen.tools.clean(args.outpath)
@@ -97,20 +97,26 @@ def generate(args: Arguments) -> None:
     # Create paths (if needed)
     if not args.outpath.exists():
         args.outpath.mkdir(parents=True, exist_ok=True)
-    
+
     # Require tools
     docsgen.tools.require()
     # Clone repo into temporary dir, if remote
     if args.repository.is_remote:
         docsgen.tools.clone(str(args.repository), reppath, branch=args.repository_branch)
-    # Generate raw docfile
-    docsgen.tools.gomarkdoc(reppath, rawpath)
-    # Parse docfiles
-    docfiles = parse(rawpath)
-    # Set first docfile as index
-    docfiles[0].is_index = True
-    # Save docfiles
-    for docfile in docfiles:
-        print(f"Saving {args.outpath / docfile.filename}.md")
-        with (args.outpath / (docfile.filename + ".md")).open("w") as f:
-            f.write(docfile.documentation)
+    # Iterate over dirs and generate docfiles
+    for directory in [""] + (args.repository_dirs or []):
+        # Generate raw docfile
+        rawpath = args.tmppath / (directory or args.repository.name + ".md")
+        docsgen.tools.gomarkdoc(reppath / directory, rawpath)
+        # Parse docfiles
+        docfiles = parse(rawpath)
+        # Set first docfile as index
+        docfiles[0].is_index = True
+        # Save docfiles
+        for docfile in docfiles:
+            docdir = args.outpath / args.prefix / directory
+            docpath = docdir / (docfile.filename + ".md")
+            print(f"Saving {docpath}")
+            docdir.mkdir(parents=True, exist_ok=True)
+            with docpath.open("w") as f:
+                f.write(docfile.documentation)
