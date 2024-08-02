@@ -7,6 +7,7 @@ class Repository:
     """Repository wrapper."""
 
     path: str
+    branch: str | None
 
     @property
     def name(self: "Repository") -> str:
@@ -14,7 +15,7 @@ class Repository:
         tokens = self.path.split("/")
         last = tokens[-1]
         return last.replace(".git", "")
-    
+
     @property
     def is_remote(self: "Repository") -> bool:
         """Determine repository is remote."""

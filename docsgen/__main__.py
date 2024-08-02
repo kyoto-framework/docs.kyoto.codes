@@ -21,8 +21,7 @@ def main() -> None:
     args = argparser.parse_args()
 
     docsgen.generate(docsgen.Arguments(
-        repository=docsgen.repository.Repository(args.repository),
-        repository_branch=args.repository_branch,
+        repository=docsgen.repository.Repository(args.repository, args.repository_branch),
         repository_dirs=(args.repository_dirs.split(",") if args.repository_dirs else None),
         outpath=pathlib.Path(args.outpath),
         tmppath=(pathlib.Path(args.tmppath) if args.tmppath else None),

@@ -21,9 +21,8 @@ RUN npm install
 COPY . .
 
 # Build
-RUN npm run docs:gen
-RUN cat /tmp/kyoto.md
-RUN npm run docs:build
+RUN npm run gen
+RUN npm run build
 
 # ---
 # Serving step

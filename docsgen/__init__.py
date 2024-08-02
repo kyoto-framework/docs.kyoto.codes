@@ -16,7 +16,6 @@ class Arguments:
 
     repository: docsgen.repository.Repository
     outpath: pathlib.Path
-    repository_branch: str | None = None
     repository_dirs: list[str] | None = None
     tmppath: pathlib.Path | None = None
     prefix: str | None = None
@@ -102,7 +101,7 @@ def generate(args: Arguments) -> None:
     docsgen.tools.require()
     # Clone repo into temporary dir, if remote
     if args.repository.is_remote:
-        docsgen.tools.clone(str(args.repository), reppath, branch=args.repository_branch)
+        docsgen.tools.clone(str(args.repository), reppath, branch=args.repository.branch)
     # Iterate over dirs and generate docfiles
     for directory in [""] + (args.repository_dirs or []):
         # Generate raw docfile
